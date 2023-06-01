@@ -23,19 +23,6 @@ app.get('/_/health', async (req, res) => {
   res.sendStatus(200);
 });
 
-app.get('/change', async (req, res) => {
-  const instanceState = neru.getInstanceState();
-  const resp = await instanceState.set('templateId', '1227442');
-  res.send(resp);
-});
-
-app.get('/token', async (req, res) => {
-  const token = await instanceState.get('refresh_token');
-  if (token) {
-    res.send(token);
-  } else res.send('no token');
-});
-
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.set('view engine', 'ejs');

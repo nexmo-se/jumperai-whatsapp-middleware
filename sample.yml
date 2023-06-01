@@ -1,41 +1,20 @@
 project:
-  name: neru-hubspot
+  name: jumperwa
 instance:
   name: prod
   runtime: nodejs16
-  region: aws.use1
-  application-id: asdsds-sdsdsdsd-sdsds
+  region: aws.euw1
+  application-id: fa145b8f-1d0d-4524-9219-60d568c51e38
+  environment:
+    - name: channels
+      value: whatsapp
+    - name: jwt
+      value: .eyJzdWIiOiJ6OHJlQ0ZZdENQWTJCTFpkOE9IQWlPVFR3QXM0IiwiYXVk
   capabilities:
-    - messaging
+    - messaging-v1
   entrypoint:
     - node
     - index.js
-  environment:
-    - name: limit
-      value: '3'
-    - name: number
-      value: '1234434'
-    - name: signature
-      value: '1232-232323-233'
-    - name: waba
-      value: '42244944067384'
-    - name: apiKey
-      value: myapikey
-    - name: apiSecret
-      value: mysecret@
-    - name: CLIENT_ID
-      value: 123232-sdsads-23232
-    - name: channels
-      value: 'sms,whatsapp,viber_service'
-    - name: hubspot_apikey
-      value: wsd2-c977-859asd-sds
-    - name: queue
-      value: hubspot
-    - name: appId
-      value: 123242
-    - name: refresh_token
-      value: eu1-a3443-sdsdsds-123243
-
 debug:
   name: debug
   entrypoint:
