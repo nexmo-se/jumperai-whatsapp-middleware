@@ -2,7 +2,7 @@
 
 - This sample app allows you to list the WhatsApp templates that are created in the Xotic Jumper account (page ID = 4885823201869824), then upon selecting a template, it asks for the relevant parameters (buttons, images, files, videos, parameters) and send the template to your number
 
--To test the web app you need to open the app url appending your phone number in international format, for example {neruappurl}/send?phone=447865431209
+- To test the web app you need to open the app url appending your phone number in international format, for example {neruappurl}/send?phone=447865431209
 
 ## Prerequisites
 
