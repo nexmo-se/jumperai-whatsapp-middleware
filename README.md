@@ -1,12 +1,13 @@
 # Jumper AI Middleware for Whatsapp templates
 
-- start/stop an Experience Composer to the video room;
-- start/stop Recording the video room with the same layout seen by each users
+- This sample app allows you to list the WhatsApp templates that are created in the Xotic Jumper account (page ID = 4885823201869824), then upon selecting a template, it asks for the relevant parameters (buttons, images, files, videos, parameters) and send the template to your number
+
+-To test the web app you need to open the app url appending your phone number in international format, for example {neruappurl}/send?phone=447865431209
 
 ## Prerequisites
 
-- Vonage API account
-  - Experience Composer is ComposerEnabled
+- Access to the Xotic Jumper AI account if you want to manage templates
+- JWT provided by the Jumper AI team
 - Early Access for VCP/NeRu
 
 ## Install and Run
