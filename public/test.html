@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="test.css" />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    <title>Vonage SMS activity</title>
+  </head>
+  <!-- BS: Center -->
+  <body class="custom-activity d-flex justify-content-center">
+    <div class="col-sm-12 col-md-4">
+      <div class="previewSection" style="background: transparent">
+        <div id="iphoneUIContainer" class="body" style="margin-top: 0px">
+          <div class="css-iphone with-glare">
+            <div
+              class="iphone-body"
+              style="
+                background: #fff;
+                -webkit-box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.2);
+                box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.2);
+              "
+            >
+              <div class="iphone-screen-position" style="border: 1px solid #eee">
+                <div class="iphone-home-button"></div>
+                <div class="iphone-screen text-left">
+                  <div class="iphone-screen">
+                    <div class="iphone-screen-inside-top">
+                      <div v-if="channelName == 'whatsapp'">
+                        <slot>siempre</slot>
+                      </div>
+                    </div>
+                    <div v-if="channelName !== 'whatsapp'" class="info-container">
+                      <slot></slot>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+    ></script>
+
+    <script type="text/javascript">
+      let channel = 'whatsapp';
+      console.log('channel:', channel);
+
+      $(document).ready(function () {
+        // BY DEFAULT ONLY SHOW SELECTED
+        $('#sms').hide();
+        $('#mms').hide();
+        // SHOW CHANNEL TYPE DIV INFO
+        $('#channel-types').on('change', function () {
+          if (this.value == 'wa') {
+            $('#wa').show();
+            $('#sms').hide();
+            $('#mms').hide();
+          } else if (this.value == 'sms') {
+            $('#sms').show();
+            $('#mms').hide();
+            $('#wa').hide();
+          } else if (this.value == 'mms') {
+            $('#mms').show();
+            $('#sms').hide();
+            $('#wa').hide();
+          } else {
+            console.log('Other value:', this.value);
+          }
+        });
+      });
+
+      // GET VALUE OF DROPDOWN FOR MESSAGE TYPE: SMS, MMS, WA
+      function setChannelType(option) {
+        console.log('setChannelType', option.value);
+      }
+
+      // DEFAULT AI
+      // let selectAi = "noAi";
+      // let inboundAi = (document.getElementById("inboundAi").value = selectAi);
+      // console.log("inboundAi:", inboundAi);
+      // GET VALUE OF RADIO FOR SELECTED AI
+      function selectedAi() {
+        selectAi = document.querySelector('input[name="inboundRadio"]:checked').value;
+        inboundAi = selectAi;
+        console.log('inboundAi:', inboundAi);
+      }
+    </script>
+    <script type="text/javascript">
+      var templateList;
+      let templateName = document.getElementById('template-name');
+      let templateText = document.getElementById('template-text');
+      let templateLanguage = document.getElementById('template-language');
+      let templateSample = document.getElementById('template-sample');
+      let optionValue;
+      let optionObj;
+
+      // REQUEST TO BACKEND THAT GETS APPROVED TEMPLATE LIST
+      // (async () => {
+      //   // NEED TO UPDATE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+      //   let WABA_ID = '1067598977328429';
+      //   let apiKey = '5c57b234';
+      //   let apiSecret = 'IoniHGUtCff1V3Gb';
+      //   var token = `${apiKey}:${apiSecret}`;
+      //   let body = { wabaID: WABA_ID, token: token };
+      //   let requestOptions = {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: JSON.stringify(body),
+      //   };
+      //   fetch('/getWATemplateList', requestOptions)
+      //     .then((response) => response.json())
+      //     .then((result) => {
+      //       console.log('Success:', result);
+      //       templateList = result;
+      //       templateName.value = result.templates[0].name;
+      //       templateLanguage.value = result.templates[0].language;
+      //       templateText.value = result.templates[0].components[0].text;
+
+      //       // SET OPTIONS IN SELECT DROPDOWN
+      //       let optionList = document.getElementById('template-list').options;
+      //       result.templates.forEach((obj) => {
+      //         // UPDATE SET SELECT OPTIONS
+      //         optionList.add(new Option(obj.name, obj.value));
+      //       });
+      //     })
+      //     .catch((error) => console.log('Error:', error));
+      // })();
+
+      // UPDATE TEMPLATE FIELDS
+      function setTemplateFields(option) {
+        // console.log('onchange:', templateList);
+        // console.log('selected:', option.value);
+        templateSample.value = '';
+        templateList.templates.forEach((obj) => {
+          if (obj.name === option.value) {
+            // console.log('matched:', obj.name);
+            templateName.value = obj.name;
+            templateLanguage.value = obj.language;
+
+            if (obj.components[0].text) {
+              templateText.value = obj.components[0].text;
+            } else {
+              templateText.value = '';
+            }
+
+            if (obj.components[0].example) {
+              templateSample.value = obj.components[0].example.body_text;
+            } else {
+              templateSample.value = '';
+            }
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
